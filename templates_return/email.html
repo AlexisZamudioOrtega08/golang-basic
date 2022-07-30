@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+         #img-div{
+            text-align: center;
+        }
+        .container{
+            background-color: #f5f5f5;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        #title{
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        #costumers {
+            width: 100%;
+        }
+
+        #customers th {
+            width: 10%;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: Center;
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        #customers td {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: Center;
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #tb {
+            text-align: center;
+            padding-right: 20px;
+        }
+
+        #body h4{
+            text-align: left;
+            padding-left: 5px;
+        }
+
+        #footer{
+            text-align: center;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+    </style>
+    <title>Email</title>
+</head>
+    <body>
+        <div class="container">
+            <div>
+                <div id="img-div">
+                    <a href="https://www.storicard.com/">
+                        <img src="https://i.ibb.co/64QRm2J/stori.png" alt="stori" width="250px" border="0">
+                    </a>
+                </div>
+            </div>
+            <div id="title">
+                {{if .FirstName}}
+                <h2>Hi <b>{{ .FirstName }} {{ .LastName }}</b>,</h3>
+                <h3>Your paperless report is ready!</h3>
+            </div>
+            <div id="body">
+                <h4>Report date: {{ .Date }}</h4>
+                <table id="customers">
+                      <tr>
+                        <th>Description</th>
+                        <th>Amount</th>
+                      </tr>
+                      <tr>
+                        <td> <b>Average debit amount </b> </td>
+                        <td>${{ .Adb }}</td>
+                      </tr>
+                      <tr>
+                        <td> <b>Average credit amount</b></td>
+                        <td>${{ .Aca }}</td>
+                      </tr>
+
+                      {{ range $month := .Txns }}
+                        <tr>
+                            <td><b>Transactions in {{$month}}" </b></td>
+                            <td>{{$month}}</td>
+                        </tr>
+                      {{ end }}
+                </table>
+                
+                <p id="tb">
+                    <b>Total balance:</b> ${{ .Tb }}
+                </p>
+                {{ end }}
+            </div>
+        </div>
+    </body>
+    <footer>
+        <div class="container">
+            <div id="footer">
+                <p>
+                    <b>Please do not reply this mail!</b>
+                </p>
+            </div>
+        </div>
+    </footer>
+</html>
